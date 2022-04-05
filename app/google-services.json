@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "606701017138",
+    "project_id": "likas-a4330",
+    "storage_bucket": "likas-a4330.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:606701017138:android:1d3a09f095b6ed4f00c42b",
+        "android_client_info": {
+          "package_name": "com.example.likas"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "606701017138-vibj00cstg1d5pqs460i9ird9pnjrd5t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgFbc4Vx1a_47nC4yi_UE9gMq9JD70ELk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "606701017138-vibj00cstg1d5pqs460i9ird9pnjrd5t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
