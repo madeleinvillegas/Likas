@@ -3,6 +3,22 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Keima/StudioProjects/Likas/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Keima/StudioProjects/Likas/app/src/main/res/layout/activity_register.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Keima/StudioProjects/Likas/app/src/main/res/layout/fragment_dashboard.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Keima/StudioProjects/Likas/app/src/main/res/layout/fragment_home.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Keima/StudioProjects/Likas/app/src/main/res/layout/fragment_notifications.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Keima/StudioProjects/Likas/app/src/main/res/layout/fragment_share.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Keima/StudioProjects/Likas/app/src/main/res/layout/frasdgsdfa.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Keima/StudioProjects/Likas/app/src/main/res/layout/tab_01_locate.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Keima/StudioProjects/Likas/app/src/main/res/layout/tab_02_identify.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Keima/StudioProjects/Likas/app/src/main/res/layout/tab_03_update.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Keima/StudioProjects/Likas/app/src/main/res/layout/tab_04_shar.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Keima/StudioProjects/Likas/app/src/main/res/layout/tab_04_share.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Keima/StudioProjects/Likas/app/src/main/res/layout/tab_home.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Keima/StudioProjects/Likas/app/src/main/res/layout/tab_identify.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Keima/StudioProjects/Likas/app/src/main/res/layout/tab_share.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Keima/StudioProjects/Likas/app/src/main/res/menu/bottom_nav_menu.xml" value="0.25416666666666665" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.19610507246376813" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.19610507246376813" />
       </map>

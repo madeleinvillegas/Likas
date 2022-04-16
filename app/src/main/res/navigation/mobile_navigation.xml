@@ -3,23 +3,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_locate">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.example.likas.ui.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/navigation_locate"
+        android:name="com.example.likas.ui.tab_01_locate.LocateFragment"
+        android:label="@string/app_name"
+        tools:layout="@layout/tab_01_locate" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.example.likas.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_identify"
+        android:name="com.example.likas.ui.tab_02_identify.IdentifyFragment"
+        android:label="@string/app_name"
+        tools:layout="@layout/tab_02_identify" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.example.likas.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_update"
+        android:name="com.example.likas.ui.tab_03_update.UpdateFragment"
+        android:label="@string/app_name"
+        tools:layout="@layout/tab_03_update" />
+
+    <fragment
+        android:id="@+id/navigation_share"
+        android:name="com.example.likas.ui.tab_04_share.ShareFragment"
+        android:label="@string/app_name"
+        tools:layout="@layout/tab_04_share" />
 </navigation>
