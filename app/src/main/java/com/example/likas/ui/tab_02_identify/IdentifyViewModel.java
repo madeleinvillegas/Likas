@@ -6,14 +6,18 @@ import androidx.lifecycle.ViewModel;
 
 public class IdentifyViewModel extends ViewModel {
 
-    private final MutableLiveData<String> mText;
+    private final MutableLiveData<String> UserID;
 
     public IdentifyViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is Identify Fragment");
+        UserID = new MutableLiveData<>();
+        UserID.setValue("This is Identify Fragment");
     }
 
-    public LiveData<String> getText() {
-        return mText;
+    public LiveData<String> setUserID() {
+        return UserID;
+    }
+
+    public LiveData<String> getUserID() {
+        return UserID;
     }
 }

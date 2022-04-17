@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">Likas</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main">Main Activity</string>
     <string name="title_locate">Locate</string>
     <string name="title_identify">Identify</string>
     <string name="title_update">Update</string>
     <string name="title_share">Share</string>
+    <string name="identify_admit">Admit</string>
 </resources>
