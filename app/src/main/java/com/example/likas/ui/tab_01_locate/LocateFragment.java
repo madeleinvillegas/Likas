@@ -20,11 +20,8 @@ public class LocateFragment extends Fragment {
         LocateViewModel locateViewModel = new ViewModelProvider(this).get(LocateViewModel.class);
 
         binding = Tab01LocateBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
 
-        final TextView textView = binding.textLocate;
-        locateViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-        return root;
+        return binding.getRoot();
     }
 
     @Override
