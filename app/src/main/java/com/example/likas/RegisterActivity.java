@@ -1,8 +1,5 @@
 package com.example.likas;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -11,9 +8,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
@@ -21,20 +17,20 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 import java.util.Objects;
 
 public class RegisterActivity extends AppCompatActivity {
-    private EditText registerEmail, registerPassword;
+    private EditText registerEmail, registerPassword, registerName;
     private FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         Button registerBtn = findViewById(R.id.register_btn);
+        registerName = findViewById(R.id.register_username);
         registerEmail = findViewById(R.id.register_email);
         registerPassword = findViewById(R.id.register_password);
         mAuth = FirebaseAuth.getInstance();
 
-        registerBtn.setOnClickListener(view -> {
-            createAccount();
-        });
+        registerBtn.setOnClickListener(view -> createAccount());
 
         TextView backToLogin = findViewById(R.id.login_here);
         backToLogin.setOnClickListener(view -> {
@@ -44,36 +40,46 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void createAccount() {
-        String email = registerEmail.getText().toString();
-        String password = registerPassword.getText().toString();
+        String name = registerName.getText().toString().trim();
+        String email = registerEmail.getText().toString().trim();
+        String password = registerPassword.getText().toString().trim();
         if (TextUtils.isEmpty(email)) {
             Toast.makeText(this, "You forgot to add your email", Toast.LENGTH_SHORT).show();
-        }
-
-        else if (TextUtils.isEmpty(password)) {
+        } else if (TextUtils.isEmpty(password)) {
             Toast.makeText(this, "You forgot to add your password", Toast.LENGTH_SHORT).show();
-        }
-        else if (password.length() < 8) {
-            Toast.makeText(this, "Your password should be at least 8 characters long", Toast.LENGTH_SHORT).show();
-        }
-        else {
-            registerUser(email, password);
+        } else if (password.length() < 5) {
+            Toast.makeText(this, "Your password should be at least 5 characters long", Toast.LENGTH_SHORT).show();
+        } else if (name.length() < 5) {
+            Toast.makeText(this, "Your username should be at least 5 characters long", Toast.LENGTH_SHORT).show();
+        } else {
+            registerUser(name, email, password);
         }
     }
 
-    private void registerUser(String email, String password) {
-        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()) {
-//                    startActivity(MainActivity);
+    private void registerUser(String name, String email, String password) {
+        Intent intent = new Intent(this, MainActivity.class);
+        findViewById(R.id.register_btn).setClickable(false);
+        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(RegisterActivity.this, task -> {
+            if (task.isSuccessful()) {
+                FirebaseUser user = mAuth.getCurrentUser();
+                if (user != null) {
+                    UserProfileChangeRequest req = new UserProfileChangeRequest.Builder().setDisplayName(name).build();
+                    user.updateProfile(req).addOnCompleteListener(task_update -> {
+                        if (task_update.isSuccessful()) {
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            String message = Objects.requireNonNull(task_update.getException()).getMessage();
+                            Toast.makeText(RegisterActivity.this, message, Toast.LENGTH_SHORT).show();
+                            findViewById(R.id.register_btn).setClickable(true);
+                        }
+                    });
                 }
-                else {
-                    String message = Objects.requireNonNull(task.getException()).getMessage();
-                    Toast.makeText(RegisterActivity.this, "Your account has not been created due to " + message, Toast.LENGTH_SHORT).show();
-                }
+            } else {
+                String message = Objects.requireNonNull(task.getException()).getMessage();
+                Toast.makeText(RegisterActivity.this, message, Toast.LENGTH_SHORT).show();
+                findViewById(R.id.register_btn).setClickable(true);
             }
         });
     }
-
 }

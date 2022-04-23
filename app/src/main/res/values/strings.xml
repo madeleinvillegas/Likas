@@ -6,4 +6,10 @@
     <string name="title_update">Update</string>
     <string name="title_share">Share</string>
     <string name="identify_admit">Admit</string>
+    <string name="registration">Registration</string>
+    <string name="logo">Logo</string>
+    <string name="create_password">Create Password</string>
+    <string name="username">Username</string>
+    <string name="register">Register</string>
+    <string name="email_address">Email Address</string>
 </resources>
