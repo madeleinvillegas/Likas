@@ -1,7 +1,9 @@
 package com.example.likas;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -15,6 +17,9 @@ import com.example.likas.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import org.osmdroid.config.Configuration;
+import org.osmdroid.views.MapView;
 
 public class MainActivity extends AppCompatActivity {
 
