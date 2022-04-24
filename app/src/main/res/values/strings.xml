@@ -12,4 +12,18 @@
     <string name="username">Username</string>
     <string name="register">Register</string>
     <string name="email_address">Email Address</string>
+    <string name="locate_me">Locate Me</string>
+    <string name="suggest_facility">Suggest Facility</string>
+    <string name="user_id">User ID</string>
+    <string name="sign_out">Sign-Out</string>
+    <string name="back">Back</string>
+    <string name="csv_facilities">San Nicolas Fire Station,14.59720858,120.9705799,Fire,0,0\nTanduay Fire Station,14.59842266,120.9900622,Fire,0,0\nSta. Mesa Fire Station,14.60175338,121.0081537,Fire,0,0\nMalacañang Fire Station,14.59236621,120.9918108,Fire,0,0\nBacood Fire Station,14.59132314,121.0197651,Fire,0,0\nPaco Fire Station,14.58055205,120.9882512,Fire,0,0\nPandacan Fire Station,14.59208266,121.0118566,Fire,0,0\nSta. Ana Fire Station,14.58021943,121.0081388,Fire,0,0\n</string>
+    <string name="nearest_facility">Nearest Facility</string>
+    <string-array name="facility_types">
+        <item>All Facilities</item>
+        <item>Evacuation Centers</item>
+        <item>Medical Facilities</item>
+        <item>Fire Stations</item>
+        <item>Police Stations</item>
+    </string-array>
 </resources>
