@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="25dp"
-            android:text="@{comment.user_id}"
+            android:text="@{comment.user}"
             android:textColor="@color/black"
             android:textSize="15sp"
             android:textStyle="bold" />

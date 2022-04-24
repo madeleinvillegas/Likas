@@ -53,12 +53,6 @@
                 android:textSize="16sp"
                 android:textStyle="normal" />
 
-
-            <EditText
-                android:id="@+id/input_tags"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
         </LinearLayout>
     </RelativeLayout>
 

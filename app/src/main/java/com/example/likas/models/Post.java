@@ -10,11 +10,11 @@ public class Post {
     private String uid;
     private String name;
     private String content;
-    private Date date;
+    private String date;
     private List<String> tags;
 
     public Post(){}
-    public Post(String uid, String name, String content, Date date, List<String> tags){
+    public Post(String uid, String name, String content,String date,List<String> tags){
 
         this.uid = uid;
         this.name = name;
@@ -24,25 +24,24 @@ public class Post {
     }
 
 
-    public String getTags() {
-        String strTags = this.tags.toString();
+    public String getTags()
+    {
+        String strTags = tags.toString();
 
         strTags = strTags.replace("[", "")
                 .replace("]", "");
         return strTags;
     }
 
-    public void setTags(ArrayList<String> tags) {
+    public void setTags(List<String> tags) {
         this.tags = tags;
     }
 
     public String getDate() {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
-        String strDate = dateFormat.format(date);
-        return strDate;
+        return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

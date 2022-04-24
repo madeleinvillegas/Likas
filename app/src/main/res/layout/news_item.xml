@@ -4,9 +4,6 @@
         <variable
             name="news"
             type="com.example.likas.models.News" />
-        <variable
-            name="newsListener"
-            type="com.example.likas.ui.tab_03_update.UpdateViewModel" />
     </data>
     <RelativeLayout
         android:id="@+id/click_news"

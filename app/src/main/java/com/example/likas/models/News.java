@@ -1,17 +1,14 @@
 package com.example.likas.models;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class News {
 
     private String title, author, description;
-    private Date date;
+    private String date;
 
     public News(){}
 
-    public News(String title,String author,Date date, String description){
+    public News(String title,String author,String date, String description){
         this.title = title;
         this.author = author;
         this.date = date;
@@ -45,12 +42,10 @@ public class News {
     }
 
     public String getDate() {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
-        String strDate = dateFormat.format(date);
-        return strDate;
+        return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 }

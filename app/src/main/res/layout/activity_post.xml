@@ -26,13 +26,13 @@
             android:id="@+id/back"
             android:layout_marginTop="10dp"
             android:layout_marginStart="8dp"/>
+
         <LinearLayout
-            android:layout_marginTop="100dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
             android:orientation="vertical"
             android:padding="5dp">
-
             <EditText
                 android:id="@+id/input_post"
                 android:layout_width="match_parent"
@@ -48,21 +48,37 @@
                 android:textStyle="normal" />
 
             <HorizontalScrollView
+                android:id="@+id/horizontal_scroll_view"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:id="@+id/horizontal_scroll_view">
+                android:layout_height="50dp">
 
                 <com.google.android.material.chip.ChipGroup
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
                     android:id="@+id/chip_tags"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
                     android:layout_margin="5dp" />
             </HorizontalScrollView>
 
-            <EditText
-                android:id="@+id/input_tags"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/input_tags"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Tags" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="25dp"
+                    android:text="Add"
+                    android:id="@+id/add_tag"/>
+
+            </LinearLayout>
+
 
         </LinearLayout>
 

@@ -1,40 +1,55 @@
 package com.example.likas.ui.tab_03_update;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.likas.R;
+import com.example.likas.databinding.NewsDetailBinding;
 import com.example.likas.databinding.UpdateDetailBinding;
+import com.example.likas.models.News;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class UpdateDetailActivity extends AppCompatActivity {
 
-    public static final String TITLE = "Test";
-    public static final String AUTHOR = "author";
+    private DatabaseReference db;
+    String url = "https://likas-a4330-default-rtdb.asia-southeast1.firebasedatabase.app/";
 
-    public static final String DESC = "desc";
-
-
-
-    private UpdateDetailBinding binding;
+    private NewsDetailBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.update_detail);
 
-        binding = UpdateDetailBinding.inflate(getLayoutInflater());
+        String pos = getIntent().getExtras().get("Position").toString();
+
+        binding = NewsDetailBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        //replace with
-        //uid = getIntent().getExtras().get("Position").toString();
-        //postRef = FirebaseDatabase.getInstance().getReference().child("Posts").child(uidOfPost);
+        db = FirebaseDatabase.getInstance(url).getReference().child("News");
 
-        Intent intent = getIntent();
-        binding.newsTitle.setText(intent.getStringExtra(TITLE));
-        binding.newsAuthor.setText(intent.getStringExtra(AUTHOR));
-        binding.newsContent.setText(intent.getStringExtra(DESC));
+
+        db.child(pos).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+
+                    binding.setNews(snapshot.getValue(News.class));
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
     }
 }
