@@ -3,26 +3,28 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Keima/StudioProjects/Likas/app/src/main/res/drawable/bottom_border.xml" value="0.217" />
-        <entry key="..\:/Users/Keima/StudioProjects/Likas/app/src/main/res/drawable/horizontal_line.xml" value="0.172" />
-        <entry key="..\:/Users/Keima/StudioProjects/Likas/app/src/main/res/layout/activity_login.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/Keima/StudioProjects/Likas/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/Keima/StudioProjects/Likas/app/src/main/res/layout/activity_register.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/Keima/StudioProjects/Likas/app/src/main/res/layout/fragment_dashboard.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/Keima/StudioProjects/Likas/app/src/main/res/layout/fragment_home.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/Keima/StudioProjects/Likas/app/src/main/res/layout/fragment_notifications.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/Keima/StudioProjects/Likas/app/src/main/res/layout/fragment_share.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/Keima/StudioProjects/Likas/app/src/main/res/layout/frasdgsdfa.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/Keima/StudioProjects/Likas/app/src/main/res/layout/tab_01_locate.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/Keima/StudioProjects/Likas/app/src/main/res/layout/tab_02_identify.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/Keima/StudioProjects/Likas/app/src/main/res/layout/tab_03_update.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/Keima/StudioProjects/Likas/app/src/main/res/layout/tab_04_shar.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/Keima/StudioProjects/Likas/app/src/main/res/layout/tab_04_share.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/Keima/StudioProjects/Likas/app/src/main/res/layout/tab_home.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/Keima/StudioProjects/Likas/app/src/main/res/layout/tab_identify.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/Keima/StudioProjects/Likas/app/src/main/res/layout/tab_share.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/Keima/StudioProjects/Likas/app/src/main/res/menu/bottom_nav_menu.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/Keima/StudioProjects/Likas/app/src/main/res/menu/toolbar.xml" value="0.264" />
+        <entry key="..\:/Users/ACER/AndroidStudioProjects/Likas/app/src/main/res/layout/activity_comment.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/ACER/AndroidStudioProjects/Likas/app/src/main/res/layout/activity_login.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/ACER/AndroidStudioProjects/Likas/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/ACER/AndroidStudioProjects/Likas/app/src/main/res/layout/activity_news.xml" value="0.1" />
+        <entry key="..\:/Users/ACER/AndroidStudioProjects/Likas/app/src/main/res/layout/activity_post.xml" value="0.1935483870967742" />
+        <entry key="..\:/Users/ACER/AndroidStudioProjects/Likas/app/src/main/res/layout/activity_register.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/ACER/AndroidStudioProjects/Likas/app/src/main/res/layout/comment_item.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/ACER/AndroidStudioProjects/Likas/app/src/main/res/layout/fragment_dashboard.xml" value="0.25" />
+        <entry key="..\:/Users/ACER/AndroidStudioProjects/Likas/app/src/main/res/layout/fragment_home.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/ACER/AndroidStudioProjects/Likas/app/src/main/res/layout/fragment_notifications.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/ACER/AndroidStudioProjects/Likas/app/src/main/res/layout/news_detail.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/ACER/AndroidStudioProjects/Likas/app/src/main/res/layout/news_item.xml" value="0.18947368421052632" />
+        <entry key="..\:/Users/ACER/AndroidStudioProjects/Likas/app/src/main/res/layout/news_item1.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/ACER/AndroidStudioProjects/Likas/app/src/main/res/layout/post_item.xml" value="0.4" />
+        <entry key="..\:/Users/ACER/AndroidStudioProjects/Likas/app/src/main/res/layout/single_chip.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/ACER/AndroidStudioProjects/Likas/app/src/main/res/layout/tab_01_locate.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/ACER/AndroidStudioProjects/Likas/app/src/main/res/layout/tab_02_identify_admin.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/ACER/AndroidStudioProjects/Likas/app/src/main/res/layout/tab_03_update.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/ACER/AndroidStudioProjects/Likas/app/src/main/res/layout/tab_04_share.xml" value="0.2" />
+        <entry key="..\:/Users/ACER/AndroidStudioProjects/Likas/app/src/main/res/layout/test.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/ACER/AndroidStudioProjects/Likas/app/src/main/res/layout/update_detail.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/ACER/AndroidStudioProjects/Likas/app/src/main/res/menu/bottom_nav_menu.xml" value="0.25416666666666665" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.19610507246376813" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.19610507246376813" />
       </map>

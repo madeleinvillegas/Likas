@@ -13,10 +13,23 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Likas">
         <activity
+            android:name=".ui.tab_03_update.NewsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.tab_03_update.UpdateDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.tab_04_share.PostActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.tab_04_share.CommentActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

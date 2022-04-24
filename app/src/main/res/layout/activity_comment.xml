@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.tab_04_share.CommentActivity">
+
+        <TextView
+            android:id="@+id/comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="sans-serif"
+            android:orientation="horizontal"
+            android:text="Comments"
+            android:textColor="@color/black"
+            android:textSize="24dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/comments_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/comment"
+            android:layout_above="@+id/input_comment"
+            android:layout_alignParentStart="true"
+            tools:itemCount="10"
+            tools:listitem="@layout/comment_item" />
+
+        <EditText
+            android:id="@+id/input_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:hint="Comment here"
+            android:inputType="textMultiLine"
+            android:padding="15dp"
+            android:textColorHint="#757575" />
+
+        <ImageButton
+            android:id="@+id/send_comment"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:padding="15dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_baseline_send_24"
+            android:background="#0000"
+            />
+
+    </RelativeLayout>
+</layout>
