@@ -5,7 +5,7 @@ public class Facility {
     public String latitude;
     public String longitude;
     public String type;
-    public String slotsAvail;
+    public String slotsTaken;
     public String slotsMax;
 
     @SuppressWarnings("unused")
@@ -13,12 +13,12 @@ public class Facility {
         // Firebase Required
     }
 
-    public Facility(String name, String latitude, String longitude, String type, String slotsAvail, String slotsMax) {
+    public Facility(String name, String latitude, String longitude, String type, String slotsTaken, String slotsMax) {
         this.name = name;
         this.latitude = latitude;
         this.longitude = longitude;
         this.type = type;
-        this.slotsAvail = slotsAvail;
+        this.slotsTaken = slotsTaken;
         this.slotsMax = slotsMax;
     }
 }

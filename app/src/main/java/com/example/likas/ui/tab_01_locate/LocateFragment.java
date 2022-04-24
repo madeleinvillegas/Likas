@@ -108,7 +108,7 @@ public class LocateFragment extends Fragment {
         setupOverlay();
 
         // Init Database
-//        initFacilities();
+        // initFacilities();
 
         // Nearest Facility Button
         binding.nearestFacility.setOnClickListener(view1 -> nearestButton());
@@ -138,6 +138,8 @@ public class LocateFragment extends Fragment {
     }
 
     private void nearestButton() {
+        if (mLocationOverlay.getMyLocation() == null) return;
+
         double myLat = mLocationOverlay.getMyLocation().getLatitude();
         double myLong = mLocationOverlay.getMyLocation().getLongitude();
 
@@ -166,11 +168,13 @@ public class LocateFragment extends Fragment {
     private void initFacilities() {
         DatabaseReference mDatabase = FirebaseDatabase.getInstance(DB_URL).getReference();
         String lst = getResources().getString(R.string.csv_facilities).trim();
+        Log.e("GAT", "Hello");
 
         for (String place : lst.split("\n")) {
-            String[] place_info = place.split(",");
+            String[] place_info = place.split("~");
             String key = mDatabase.child("facilities").push().getKey();
             Facility facility = new Facility(place_info[0], place_info[1], place_info[2], place_info[3], place_info[4], place_info[5]);
+            Log.e("GAT", facility.toString());
 
             Map<String, Object> childUpdates = new HashMap<>();
             childUpdates.put("facilities/" + key, facility);
@@ -187,20 +191,28 @@ public class LocateFragment extends Fragment {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 try {
-                    Marker marker = new Marker(mMapView);
-
                     double lat = Double.parseDouble(String.valueOf(snapshot.child("latitude").getValue()));
                     double longitude = Double.parseDouble(String.valueOf(snapshot.child("longitude").getValue()));
-                    marker.setPosition(new GeoPoint(lat, longitude));
+                    String name = String.valueOf(snapshot.child("name").getValue());
+                    int slotsTaken = Integer.parseInt(String.valueOf(snapshot.child("slotsTaken").getValue()));
+                    int slotsMax = Integer.parseInt(String.valueOf(snapshot.child("slotsMax").getValue()));
+                    String type = String.valueOf(snapshot.child("type").getValue());
 
+                    Marker marker = new Marker(mMapView);
+                    marker.setPosition(new GeoPoint(lat, longitude));
                     marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER);
                     marker.setIcon(ResourcesCompat.getDrawable(getResources(), R.drawable.black_pin, null));
-
-                    String facility_name = String.valueOf(snapshot.child("name").getValue());
-                    marker.setTitle(facility_name);
+                    marker.setTitle(name);
 
                     marker.setOnMarkerClickListener((marker1, mapView) -> {
-                        startActivity(new Intent(getContext(), FacilityPopupActivity.class));
+                        Intent intent = new Intent(getContext(), FacilityPopupActivity.class);
+                        intent.putExtra("lat", lat);
+                        intent.putExtra("longitude", longitude);
+                        intent.putExtra("name", name);
+                        intent.putExtra("slotsTaken", slotsTaken);
+                        intent.putExtra("slotsMax", slotsMax);
+                        intent.putExtra("type", type);
+                        startActivity(intent);
                         return false;
                     });
 

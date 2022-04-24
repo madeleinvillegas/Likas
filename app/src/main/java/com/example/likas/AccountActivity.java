@@ -21,15 +21,15 @@ public class AccountActivity extends AppCompatActivity {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null) {
-            ((TextView) findViewById(R.id.user_info_name)).setText(user.getDisplayName());
-            ((TextView) findViewById(R.id.user_info_email)).setText(user.getEmail());
-            ((TextView) findViewById(R.id.user_info_id)).setText(user.getUid());
+            ((TextView) findViewById(R.id.facility_name)).setText(user.getDisplayName());
+            ((TextView) findViewById(R.id.facility_type)).setText(user.getEmail());
+            ((TextView) findViewById(R.id.facility_slots)).setText(user.getUid());
         }
 
         ImageView back = findViewById(R.id.user_back);
         back.setOnClickListener(view -> finish());
 
-        Button sign_out = findViewById(R.id.sign_out);
+        Button sign_out = findViewById(R.id.redirect);
         sign_out.setOnClickListener(view -> {
             mAuth.signOut();
             Intent intent = new Intent(this, LoginActivity.class);
