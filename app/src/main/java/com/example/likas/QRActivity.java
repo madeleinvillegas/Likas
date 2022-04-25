@@ -42,7 +42,8 @@ public class QRActivity extends AppCompatActivity implements QRCodeReaderView.On
             DatabaseReference mDatabase = FirebaseDatabase.getInstance(DB_URL).getReference();
             DatabaseReference d = mDatabase.child("facilities/" + getIntent().getStringExtra("key") + "/slotsTaken");
             d.setValue(ServerValue.increment(1));
-            Log.e("QR", "Success");
+            Log.e("QR", "Admit Success");
+            finish();
         });
     }
 
