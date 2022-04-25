@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="comment"
+            type="com.example.likas.models.Comment" />
+    </data>
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/comment_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="25dp"
+            android:text="@{comment.user}"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/comment_body"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/comment_username"
+            android:minHeight="75dp"
+            android:text="@{comment.body}"
+            android:textSize="15sp" />
+        <TextView
+            android:id="@+id/comment_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/comment_body"
+            android:minHeight="10dp"
+            android:layout_marginTop="5dp"
+            android:textSize="10dp"
+            android:text="@{comment.date}"/>
+    </RelativeLayout>
+</layout>

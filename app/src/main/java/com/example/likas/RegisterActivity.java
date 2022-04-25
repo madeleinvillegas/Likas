@@ -8,17 +8,24 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.HashMap;
 import java.util.Objects;
 
 public class RegisterActivity extends AppCompatActivity {
     private EditText registerEmail, registerPassword, registerName;
     private FirebaseAuth mAuth;
+    String url = "https://likas-a4330-default-rtdb.asia-southeast1.firebasedatabase.app/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +73,26 @@ public class RegisterActivity extends AppCompatActivity {
                     UserProfileChangeRequest req = new UserProfileChangeRequest.Builder().setDisplayName(name).build();
                     user.updateProfile(req).addOnCompleteListener(task_update -> {
                         if (task_update.isSuccessful()) {
+                            String uid = mAuth.getCurrentUser().getUid();
+                            DatabaseReference usersdb = FirebaseDatabase.getInstance(url).getReference().child("Users").child(uid);
+
+                            HashMap users = new HashMap();
+                            users.put("name", name);
+                            //users.put("admin","0");
+
+                            usersdb.updateChildren(users).addOnCompleteListener(new OnCompleteListener() {
+                                @Override
+                                public void onComplete(@NonNull Task task) {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(RegisterActivity.this, "Your account has been created", Toast.LENGTH_SHORT).show();
+                                    }
+                                    else {
+                                        String errorMessage = task.getException().getMessage();
+                                        Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                            });
+
                             startActivity(intent);
                             finish();
                         } else {
