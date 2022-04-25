@@ -30,7 +30,7 @@
             tools:ignore="ContentDescription" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/coordinates"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -44,7 +44,7 @@
             app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
         <EditText
-            android:id="@+id/login_email"
+            android:id="@+id/evac_name"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_marginStart="8dp"
@@ -56,10 +56,10 @@
             android:textColorHint="#757575"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+            app:layout_constraintTop_toBottomOf="@+id/coordinates" />
 
         <EditText
-            android:id="@+id/login_password"
+            android:id="@+id/evac_latitude"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_marginStart="8dp"
@@ -71,10 +71,10 @@
             android:textColorHint="#757575"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/login_email" />
+            app:layout_constraintTop_toBottomOf="@+id/evac_name" />
 
         <Button
-            android:id="@+id/login_btn"
+            android:id="@+id/submit"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -83,7 +83,7 @@
             android:textSize="50px"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/login_password" />
+            app:layout_constraintTop_toBottomOf="@+id/evac_latitude" />
 
         <TextView
             android:id="@+id/forgot_password"
@@ -98,7 +98,7 @@
             android:textSize="50px"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/login_btn" />
+            app:layout_constraintTop_toBottomOf="@+id/submit" />
 
         <Button
             android:id="@+id/register_here"

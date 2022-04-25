@@ -12,7 +12,8 @@
         <entry key="..\:/Users/Keima/StudioProjects/Likas/app/src/main/res/drawable/red_pin.xml" value="0.192" />
         <entry key="..\:/Users/Keima/StudioProjects/Likas/app/src/main/res/drawable/yellow_pin.xml" value="0.192" />
         <entry key="..\:/Users/Keima/StudioProjects/Likas/app/src/main/res/layout/activity_login.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/Keima/StudioProjects/Likas/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Keima/StudioProjects/Likas/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/Keima/StudioProjects/Likas/app/src/main/res/layout/activity_new_evac.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Keima/StudioProjects/Likas/app/src/main/res/layout/activity_register.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Keima/StudioProjects/Likas/app/src/main/res/layout/button_account.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Keima/StudioProjects/Likas/app/src/main/res/layout/facility_item.xml" value="0.25416666666666665" />
@@ -22,8 +23,10 @@
         <entry key="..\:/Users/Keima/StudioProjects/Likas/app/src/main/res/layout/fragment_notifications.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Keima/StudioProjects/Likas/app/src/main/res/layout/fragment_share.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Keima/StudioProjects/Likas/app/src/main/res/layout/frasdgsdfa.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Keima/StudioProjects/Likas/app/src/main/res/layout/qr_scanner.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Keima/StudioProjects/Likas/app/src/main/res/layout/tab_01_locate.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Keima/StudioProjects/Likas/app/src/main/res/layout/tab_02_identify.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Keima/StudioProjects/Likas/app/src/main/res/layout/tab_02_identify_admin.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Keima/StudioProjects/Likas/app/src/main/res/layout/tab_03_update.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Keima/StudioProjects/Likas/app/src/main/res/layout/tab_04_shar.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Keima/StudioProjects/Likas/app/src/main/res/layout/tab_04_share.xml" value="0.25416666666666665" />

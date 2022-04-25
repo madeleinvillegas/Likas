@@ -1,13 +1,17 @@
 package com.example.likas.ui.tab_01_locate;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -17,13 +21,16 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.likas.FacilityPopupActivity;
+import com.example.likas.NewEvacActivity;
 import com.example.likas.R;
-import com.example.likas.classes.Facility;
 import com.example.likas.databinding.Tab01LocateBinding;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -43,9 +50,9 @@ import org.osmdroid.views.overlay.ScaleBarOverlay;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class LocateFragment extends Fragment {
     private Tab01LocateBinding binding;
@@ -53,6 +60,8 @@ public class LocateFragment extends Fragment {
     private MapView mMapView;
     private Context context;
     private MyLocationNewOverlay mLocationOverlay;
+    private Marker suggestMarker;
+    private Overlay mOverlay;
 
     private static final String PREFS_NAME = "org.andnav.osm.prefs";
     private static final String PREFS_TILE_SOURCE = "tilesource";
@@ -104,17 +113,16 @@ public class LocateFragment extends Fragment {
         // Dropdown
         setupDropdown();
 
-        // Overlay Markers
-        setupOverlay();
-
-        // Init Database
-        // initFacilities();
-
         // Nearest Facility Button
         binding.nearestFacility.setOnClickListener(view1 -> nearestButton());
 
         // Locate Me Button
         binding.locateMe.setOnClickListener(view1 -> {
+            String item = Manifest.permission.ACCESS_FINE_LOCATION;
+            if (ContextCompat.checkSelfPermission(context, item) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(requireActivity(), new String[]{item}, 0);
+            }
+
             GeoPoint myLocation = mLocationOverlay.getMyLocation();
             if (myLocation != null) {
                 double latitude = mLocationOverlay.getMyLocation().getLatitude();
@@ -124,6 +132,9 @@ public class LocateFragment extends Fragment {
                 Toast.makeText(context, "Location Services if Off or Not Working", Toast.LENGTH_SHORT).show();
             }
         });
+
+        // Suggest/Add Button
+        suggestFacility();
 
         // The Rest of This is Restoring the Last Map Location the User Looked at
         final float zoomLevel = mPrefs.getFloat(PREFS_ZOOM_LEVEL_DOUBLE, 17.0F);
@@ -135,6 +146,65 @@ public class LocateFragment extends Fragment {
         mMapView.setExpectedCenter(new GeoPoint(latitude, longitude));
 
         setHasOptionsMenu(true);
+    }
+
+    private void suggestFacility() {
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance(DB_URL).getReference();
+
+        try {
+            String UID = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
+            mDatabase.child("admins").child(UID).get().addOnCompleteListener(task -> {
+                if (String.valueOf(task.getResult().getValue()).equals("true")) {
+                    binding.suggestFacility.setText(R.string.add_facility);
+                }
+            });
+        } catch (NullPointerException e) {
+            // None
+        }
+
+        AtomicInteger mode = new AtomicInteger(0);
+        binding.suggestFacility.setOnClickListener(view -> {
+            Toast.makeText(context, "Drag the Map. When the Pin is in the Right Position, Press the Button Again.", Toast.LENGTH_SHORT).show();
+
+            if (mode.get() == 0) {
+                binding.suggestFacility.setBackgroundColor(Color.parseColor("#4C8BF5"));
+                mode.set(1);
+
+                suggestMarker = new Marker(mMapView);
+                Log.e("Tag", "Hello");
+                suggestMarker.setIcon(ResourcesCompat.getDrawable(getResources(), R.drawable.red_pin, null));
+                suggestMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER);
+                suggestMarker.setPosition(new GeoPoint((float) mMapView.getMapCenter().getLatitude(),
+                        (float) mMapView.getMapCenter().getLongitude()));
+
+                mOverlay = new Overlay() {
+                    @Override
+                    public boolean onTouchEvent(MotionEvent event, MapView mapView) {
+                        suggestMarker.setPosition(new GeoPoint((float) mMapView.getMapCenter().getLatitude(),
+                                (float) mMapView.getMapCenter().getLongitude()));
+                        return super.onTouchEvent(event, mapView);
+                    }
+                };
+
+                mMapView.getOverlays().add(suggestMarker);
+                mMapView.getOverlays().add(mOverlay);
+                mMapView.invalidate();
+            } else if (mode.get() == 1) {
+                binding.suggestFacility.setBackgroundColor(Color.parseColor("#667080"));
+                mode.set(0);
+
+                GeoPoint point = suggestMarker.getPosition();
+                Intent intent = new Intent(context, NewEvacActivity.class);
+                intent.putExtra("lat", point.getLatitude());
+                intent.putExtra("long", point.getLongitude());
+                startActivity(intent);
+
+                mMapView.getOverlays().remove(suggestMarker);
+                mMapView.getOverlays().remove(mOverlay);
+                mMapView.invalidate();
+            }
+        });
     }
 
     private void nearestButton() {
@@ -161,62 +231,64 @@ public class LocateFragment extends Fragment {
                 Log.e("NEAREST", String.valueOf(gap));
             }
         }
-        if (shortest != null)
+        if (shortest != null) {
             mMapView.getController().animateTo(new GeoPoint(nearLat, nearLong), 17.0, 500L);
-    }
-
-    private void initFacilities() {
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance(DB_URL).getReference();
-        String lst = getResources().getString(R.string.csv_facilities).trim();
-        Log.e("GAT", "Hello");
-
-        for (String place : lst.split("\n")) {
-            String[] place_info = place.split("~");
-            String key = mDatabase.child("facilities").push().getKey();
-            Facility facility = new Facility(place_info[0], place_info[1], place_info[2], place_info[3], place_info[4], place_info[5]);
-            Log.e("GAT", facility.toString());
-
-            Map<String, Object> childUpdates = new HashMap<>();
-            childUpdates.put("facilities/" + key, facility);
-
-            mDatabase.updateChildren(childUpdates);
         }
     }
 
-    private void setupOverlay() {
+    private void setupOverlay(String type) {
         // Your Items
+        Log.e("Tag", type);
+        List<Overlay> ovs = mMapView.getOverlays();
+        Log.e("Tag", "Remove");
+        for (Overlay ov : ovs) {
+            if (ov instanceof Marker && ov != suggestMarker) ovs.remove(ov);
+        }
+        // Redraw
+        mMapView.getController().animateTo(mMapView.getMapCenter());
         DatabaseReference mDatabase = FirebaseDatabase.getInstance(DB_URL).getReference();
 
         ChildEventListener childEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 try {
-                    double lat = Double.parseDouble(String.valueOf(snapshot.child("latitude").getValue()));
-                    double longitude = Double.parseDouble(String.valueOf(snapshot.child("longitude").getValue()));
-                    String name = String.valueOf(snapshot.child("name").getValue());
-                    int slotsTaken = Integer.parseInt(String.valueOf(snapshot.child("slotsTaken").getValue()));
-                    int slotsMax = Integer.parseInt(String.valueOf(snapshot.child("slotsMax").getValue()));
-                    String type = String.valueOf(snapshot.child("type").getValue());
+                    String facility_type = String.valueOf(snapshot.child("type").getValue());
+                    if (type.equals("All Facilities") || Objects.equals(type, facility_type)) {
+                        double lat = Double.parseDouble(String.valueOf(snapshot.child("latitude").getValue()));
+                        double longitude = Double.parseDouble(String.valueOf(snapshot.child("longitude").getValue()));
+                        String name = String.valueOf(snapshot.child("name").getValue());
+                        int slotsTaken = Integer.parseInt(String.valueOf(snapshot.child("slotsTaken").getValue()));
+                        int slotsMax = Integer.parseInt(String.valueOf(snapshot.child("slotsMax").getValue()));
 
-                    Marker marker = new Marker(mMapView);
-                    marker.setPosition(new GeoPoint(lat, longitude));
-                    marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER);
-                    marker.setIcon(ResourcesCompat.getDrawable(getResources(), R.drawable.black_pin, null));
-                    marker.setTitle(name);
+                        Marker marker = new Marker(mMapView);
+                        marker.setPosition(new GeoPoint(lat, longitude));
+                        marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER);
 
-                    marker.setOnMarkerClickListener((marker1, mapView) -> {
-                        Intent intent = new Intent(getContext(), FacilityPopupActivity.class);
-                        intent.putExtra("lat", lat);
-                        intent.putExtra("longitude", longitude);
-                        intent.putExtra("name", name);
-                        intent.putExtra("slotsTaken", slotsTaken);
-                        intent.putExtra("slotsMax", slotsMax);
-                        intent.putExtra("type", type);
-                        startActivity(intent);
-                        return false;
-                    });
+                        int pin = R.drawable.black_pin;
+                        if (facility_type.contains("Verified")) {
+                            if (slotsTaken >= slotsMax) pin = R.drawable.red_pin;
+                            else if (slotsTaken / (float) slotsMax >= 0.5)
+                                pin = R.drawable.yellow_pin;
+                            else pin = R.drawable.green_pin;
+                        }
+                        marker.setIcon(ResourcesCompat.getDrawable(getResources(), pin, null));
+                        marker.setTitle(name);
 
-                    mMapView.getOverlays().add(marker);
+                        marker.setOnMarkerClickListener((marker1, mapView) -> {
+                            Intent intent = new Intent(getContext(), FacilityPopupActivity.class);
+                            intent.putExtra("key", snapshot.getKey());
+                            intent.putExtra("lat", lat);
+                            intent.putExtra("longitude", longitude);
+                            intent.putExtra("name", name);
+                            intent.putExtra("slotsTaken", slotsTaken);
+                            intent.putExtra("slotsMax", slotsMax);
+                            intent.putExtra("type", facility_type);
+                            startActivity(intent);
+                            return false;
+                        });
+
+                        mMapView.getOverlays().add(marker);
+                    }
                 } catch (NullPointerException e) {
                     // None
                 }
@@ -224,22 +296,22 @@ public class LocateFragment extends Fragment {
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                // None
+                setupOverlay(type);
             }
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-                // None
+                setupOverlay(type);
             }
 
             @Override
             public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                // None
+                setupOverlay(type);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                // None
+                setupOverlay(type);
             }
         };
 
@@ -256,7 +328,7 @@ public class LocateFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String str = spinner.getSelectedItem().toString();
-                Toast.makeText(context, str, Toast.LENGTH_SHORT).show();
+                setupOverlay(str);
             }
 
             @Override
