@@ -29,6 +29,7 @@ import androidx.fragment.app.Fragment;
 import com.example.likas.FacilityPopupActivity;
 import com.example.likas.NewEvacActivity;
 import com.example.likas.R;
+import com.example.likas.classes.MarkerWithPinColor;
 import com.example.likas.databinding.Tab01LocateBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -219,11 +220,11 @@ public class LocateFragment extends Fragment {
 
         List<Overlay> ovs = mMapView.getOverlays();
         for (Overlay ov : ovs) {
-            if (ov instanceof Marker) {
+            if (ov instanceof MarkerWithPinColor) {
                 double markLat = ((Marker) ov).getPosition().getLatitude();
                 double markLong = ((Marker) ov).getPosition().getLongitude();
                 double gap = Math.sqrt(Math.pow(markLat - myLat, 2) + Math.pow(markLong - myLong, 2));
-                if ((shortest == null) || (gap < shortest)) {
+                if (((shortest == null) || (gap < shortest)) && !((MarkerWithPinColor) ov).isRed) {
                     shortest = gap;
                     nearLat = markLat;
                     nearLong = markLong;
@@ -260,17 +261,20 @@ public class LocateFragment extends Fragment {
                         int slotsTaken = Integer.parseInt(String.valueOf(snapshot.child("slotsTaken").getValue()));
                         int slotsMax = Integer.parseInt(String.valueOf(snapshot.child("slotsMax").getValue()));
 
-                        Marker marker = new Marker(mMapView);
-                        marker.setPosition(new GeoPoint(lat, longitude));
-                        marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER);
-
                         int pin = R.drawable.black_pin;
+                        boolean isRed = false;
                         if (facility_type.contains("Verified")) {
-                            if (slotsTaken >= slotsMax) pin = R.drawable.red_pin;
-                            else if (slotsTaken / (float) slotsMax >= 0.5)
+                            if (slotsTaken >= slotsMax) {
+                                pin = R.drawable.red_pin;
+                                isRed = true;
+                            } else if (slotsTaken / (float) slotsMax >= 0.5)
                                 pin = R.drawable.yellow_pin;
                             else pin = R.drawable.green_pin;
                         }
+
+                        MarkerWithPinColor marker = new MarkerWithPinColor(mMapView, isRed);
+                        marker.setPosition(new GeoPoint(lat, longitude));
+                        marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER);
                         marker.setIcon(ResourcesCompat.getDrawable(getResources(), pin, null));
                         marker.setTitle(name);
 
@@ -283,6 +287,7 @@ public class LocateFragment extends Fragment {
                             intent.putExtra("slotsTaken", slotsTaken);
                             intent.putExtra("slotsMax", slotsMax);
                             intent.putExtra("type", facility_type);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
                             return false;
                         });

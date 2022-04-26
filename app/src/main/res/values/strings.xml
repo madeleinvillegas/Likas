@@ -26,6 +26,7 @@
     <string name="slots_max">Slots Max</string>
     <string name="qrimage">qrimage</string>
     <string name="note">Please Present the Following QR Code to the Evacuation Center Officials.</string>
+    <string name="send_comment">Send Comment</string>
     <string-array name="facility_types">
         <item>All Facilities</item>
         <item>Evacuation Centers (Verified)</item>

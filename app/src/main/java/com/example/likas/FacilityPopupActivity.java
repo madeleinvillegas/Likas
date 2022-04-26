@@ -108,6 +108,7 @@ public class FacilityPopupActivity extends AppCompatActivity {
                     newIntent.putExtra("mode", intent.getStringExtra("modify"));
                     newIntent.putExtra("key", intent.getStringExtra("key"));
                     startActivity(newIntent);
+                    finish();
                 });
 
                 // Delete

@@ -1,9 +1,5 @@
 package com.example.likas.models;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class Post {
@@ -13,8 +9,10 @@ public class Post {
     private String date;
     private List<String> tags;
 
-    public Post(){}
-    public Post(String uid, String name, String content,String date,List<String> tags){
+    public Post() {
+    }
+
+    public Post(String uid, String name, String content, String date, List<String> tags) {
 
         this.uid = uid;
         this.name = name;
@@ -24,12 +22,14 @@ public class Post {
     }
 
 
-    public String getTags()
-    {
-        String strTags = tags.toString();
-
-        strTags = strTags.replace("[", "")
-                .replace("]", "");
+    public String getTags() {
+        String strTags = "null";
+        try {
+            strTags = tags.toString();
+            strTags = strTags.replace("[", "").replace("]", "");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return strTags;
     }
 

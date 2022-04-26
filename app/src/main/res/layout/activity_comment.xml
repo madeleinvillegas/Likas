@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.tab_04_share.CommentActivity">
@@ -46,11 +46,11 @@
             android:layout_height="50dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
+            android:background="#0000"
+            android:contentDescription="@string/send_comment"
             android:padding="15dp"
             android:scaleType="centerInside"
-            android:src="@drawable/ic_baseline_send_24"
-            android:background="#0000"
-            />
+            android:src="@drawable/ic_baseline_send_24" />
 
     </RelativeLayout>
 </layout>

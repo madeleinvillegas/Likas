@@ -1,6 +1,7 @@
 package com.example.likas.ui.tab_04_share;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -27,6 +28,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -69,6 +71,7 @@ public class CommentActivity extends AppCompatActivity {
         binding.commentsRecyclerView.setLayoutManager(new LinearLayoutManager(CommentActivity.this));
 
         binding.sendComment.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
                 comment = binding.inputComment.getText().toString();
