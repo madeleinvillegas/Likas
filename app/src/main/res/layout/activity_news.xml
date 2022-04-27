@@ -5,7 +5,8 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.tab_03_update.NewsActivity">
+        tools:context=".ui.tab_03_update.NewsActivity"
+        android:layout_margin="5dp">
 
         <Button
             android:layout_width="wrap_content"
@@ -23,7 +24,8 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src = "@drawable/ic_baseline_arrow_back_24"
-            android:id="@+id/back"
+            android:id="@+id/back_button"
+            android:clickable="true"
             android:layout_marginTop="10dp"
             android:layout_marginStart="8dp"/>
         <LinearLayout

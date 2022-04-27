@@ -20,6 +20,7 @@ import com.example.likas.ui.tab_03_update.NewsActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.chip.Chip;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -40,7 +41,8 @@ public class PostActivity extends AppCompatActivity {
     private ActivityPostBinding binding;
     List<String> tags = new ArrayList<>();
 
-    private DatabaseReference db, userRef;
+    private DatabaseReference db;
+    private String userRef;
     private String uid, post_title, post_body;
     String url = "https://likas-a4330-default-rtdb.asia-southeast1.firebasedatabase.app/";
 
@@ -49,13 +51,24 @@ public class PostActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         binding = ActivityPostBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        binding.back.setOnClickListener(view -> finish());
         uid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
         db = FirebaseDatabase.getInstance(url).getReference().child("Posts");
-        userRef = FirebaseDatabase.getInstance(url).getReference().child("Users").child(uid);
+        userRef = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getDisplayName();
+
+        Intent intent = getIntent();
+
+        if(intent.hasExtra("EditMode")){
+            String key = intent.getExtras().get("key").toString();
+            binding.buttonPost.setText("Update");
+            binding.inputPost.setText(intent.getExtras().get("content").toString());
+            List<String> tagslist = intent.getStringArrayListExtra("tags");
+            for(String s:tagslist){
+                setChips(s);
+            }
+        }
 
 
         binding.buttonPost.setOnClickListener(new View.OnClickListener() {
@@ -69,53 +82,49 @@ public class PostActivity extends AppCompatActivity {
                     DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
                     String date = temp.format(format);
 
+                    String strTags = tags.toString();
 
-                    userRef.addValueEventListener(new ValueEventListener() {
+                    strTags = strTags.replace("[", "")
+                            .replace("]", "");
+                    Toast.makeText(PostActivity.this,strTags,Toast.LENGTH_SHORT).show();
+
+                    HashMap post = new HashMap();
+                    post.put("uid",uid);
+                    post.put("name",userRef);
+                    post.put("content",binding.inputPost.getText().toString());
+                    post.put("date",date);
+                    post.put("tags", tags);
+
+                    String stamp = uid+" "+date;
+
+                    if(intent.hasExtra("EditMode")){
+                        String key = intent.getExtras().get("key").toString();
+                        stamp = key;
+                    }
+
+                    db.child(stamp).updateChildren(post).addOnCompleteListener(new OnCompleteListener() {
                         @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if(snapshot.exists()){
+                        public void onComplete(@NonNull Task task) {
+                            if(task.isSuccessful()){
+                                if(intent.hasExtra("EditMode")){
+                                    Toast.makeText(PostActivity.this,"Updated",Toast.LENGTH_SHORT).show();
+                                }
+                                else{
+                                    Toast.makeText(PostActivity.this,"Posted",Toast.LENGTH_SHORT).show();
+                                }
 
+                                binding.inputPost.setText("");
+                                binding.inputTags.setText("");
+                                tags.clear();
+                                binding.chipTags.removeAllViews();
 
-                                String strTags = tags.toString();
-
-                                strTags = strTags.replace("[", "")
-                                        .replace("]", "");
-                                Toast.makeText(PostActivity.this,strTags,Toast.LENGTH_SHORT).show();
-
-                                String name = snapshot.child("name").getValue().toString();
-
-                                HashMap post = new HashMap();
-                                post.put("uid",uid);
-                                post.put("name",name);
-                                post.put("content",binding.inputPost.getText().toString());
-                                post.put("date",date);
-                                post.put("tags",tags);
-                                String stamp = uid+" "+date;
-
-                                db.child(stamp).updateChildren(post).addOnCompleteListener(new OnCompleteListener() {
-                                    @Override
-                                    public void onComplete(@NonNull Task task) {
-                                        if(task.isSuccessful()){
-                                            Toast.makeText(PostActivity.this,"Posted",Toast.LENGTH_SHORT).show();
-                                            binding.inputPost.setText("");
-                                            binding.inputTags.setText("");
-                                            tags.clear();
-                                            binding.chipTags.removeAllViews();
-
-                                        }
-                                        else{
-                                            Toast.makeText(PostActivity.this,"Error",Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-                                });
+                            }
+                            else{
+                                Toast.makeText(PostActivity.this,"Error",Toast.LENGTH_SHORT).show();
                             }
                         }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
                     });
+                    finish();
                 }
 
             }

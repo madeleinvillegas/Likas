@@ -8,7 +8,6 @@ import android.os.Bundle;
 
 import com.example.likas.R;
 import com.example.likas.databinding.NewsDetailBinding;
-import com.example.likas.databinding.UpdateDetailBinding;
 import com.example.likas.models.News;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,6 +30,8 @@ public class UpdateDetailActivity extends AppCompatActivity {
 
         binding = NewsDetailBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        binding.newsBack.setOnClickListener(view -> finish());
 
         db = FirebaseDatabase.getInstance(url).getReference().child("News");
 
