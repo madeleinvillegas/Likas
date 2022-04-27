@@ -128,7 +128,7 @@ public class UpdateFragment extends Fragment {
             admin = false;
         }
 
-        binding.setAdmin(true);
+        binding.setAdmin(admin);
 
         db = FirebaseDatabase.getInstance(url).getReference().child("News");
         binding.newsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
