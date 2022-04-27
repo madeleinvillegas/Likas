@@ -5,10 +5,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.dlazaro66.qrcodereaderview.QRCodeReaderView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
@@ -40,9 +42,17 @@ public class QRActivity extends AppCompatActivity implements QRCodeReaderView.On
         ((TextView) findViewById(R.id.note)).setText(text);
         findViewById(R.id.count_user).setOnClickListener(view -> {
             DatabaseReference mDatabase = FirebaseDatabase.getInstance(DB_URL).getReference();
-            DatabaseReference d = mDatabase.child("facilities/" + getIntent().getStringExtra("key") + "/slotsTaken");
+            String key = getIntent().getStringExtra("key");
+            DatabaseReference d = mDatabase.child("facilities/" + key + "/slotsTaken");
             d.setValue(ServerValue.increment(1));
+
             Log.e("QR", "Admit Success");
+            Toast.makeText(this, "Admit Success", Toast.LENGTH_SHORT).show();
+
+            FirebaseAuth mAuth = FirebaseAuth.getInstance();
+            d = mDatabase.child("facilities/" + key + "/uids/" + mAuth.getUid());
+            d.setValue(true);
+
             finish();
         });
     }

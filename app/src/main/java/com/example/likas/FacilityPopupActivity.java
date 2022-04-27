@@ -94,6 +94,7 @@ public class FacilityPopupActivity extends AppCompatActivity {
                     Intent newIntent = new Intent(getApplicationContext(), QRActivity.class);
                     newIntent.putExtra("key", intent.getStringExtra("key"));
                     startActivity(newIntent);
+                    finish();
                 });
 
                 // Edit
