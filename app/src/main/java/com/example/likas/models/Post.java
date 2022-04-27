@@ -1,5 +1,6 @@
 package com.example.likas.models;
-
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Post {
@@ -7,13 +8,11 @@ public class Post {
     private String name;
     private String content;
     private String date;
-    private List<String> tags;
+    private List<String> tags = new ArrayList<>();
+    private String key;
 
-    public Post() {
-    }
-
-    public Post(String uid, String name, String content, String date, List<String> tags) {
-
+    public Post(){}
+    public Post(String uid, String name, String content,String date,List<String> tags){
         this.uid = uid;
         this.name = name;
         this.content = content;
@@ -22,15 +21,11 @@ public class Post {
     }
 
 
-    public String getTags() {
-        String strTags = "null";
-        try {
-            strTags = tags.toString();
-            strTags = strTags.replace("[", "").replace("]", "");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return strTags;
+    public String getTags()
+    {
+        String s = tags.toString();
+        s = s.replace("[", "").replace("]", "").trim();
+        return s;
     }
 
     public void setTags(List<String> tags) {
@@ -68,4 +63,46 @@ public class Post {
     public void setUid(String uid) {
         this.uid = uid;
     }
+
+    public List<String> getListTags(){
+        return tags;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+        String newLine = System.getProperty("line.separator");
+
+        result.append( this.getClass().getName() );
+        result.append( " Object {" );
+        result.append(newLine);
+
+        //determine fields declared in this class only (no fields of superclass)
+        Field[] fields = this.getClass().getDeclaredFields();
+
+        //print field names paired with their values
+        for ( Field field : fields  ) {
+            result.append("  ");
+            try {
+                result.append( field.getName() );
+                result.append(": ");
+                //requires access to private field:
+                result.append( field.get(this) );
+            } catch ( IllegalAccessException ex ) {
+                System.out.println(ex);
+            }
+            result.append(newLine);
+        }
+        result.append("}");
+
+        return result.toString();
+    }
+
 }

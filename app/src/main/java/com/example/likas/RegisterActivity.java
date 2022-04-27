@@ -74,24 +74,7 @@ public class RegisterActivity extends AppCompatActivity {
                     user.updateProfile(req).addOnCompleteListener(task_update -> {
                         if (task_update.isSuccessful()) {
                             String uid = mAuth.getCurrentUser().getUid();
-                            DatabaseReference usersdb = FirebaseDatabase.getInstance(url).getReference().child("Users").child(uid);
-
-                            HashMap users = new HashMap();
-                            users.put("name", name);
-                            //users.put("admin","0");
-
-                            usersdb.updateChildren(users).addOnCompleteListener(new OnCompleteListener() {
-                                @Override
-                                public void onComplete(@NonNull Task task) {
-                                    if (task.isSuccessful()) {
-                                        Toast.makeText(RegisterActivity.this, "Your account has been created", Toast.LENGTH_SHORT).show();
-                                    }
-                                    else {
-                                        String errorMessage = task.getException().getMessage();
-                                        Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
-                                    }
-                                }
-                            });
+                            Toast.makeText(RegisterActivity.this, "Your account has been created", Toast.LENGTH_SHORT).show();
 
                             startActivity(intent);
                             finish();

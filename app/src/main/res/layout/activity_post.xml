@@ -5,7 +5,8 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.tab_04_share.PostActivity">
+        tools:context=".ui.tab_04_share.PostActivity"
+        android:layout_margin="5dp">
 
         <Button
             android:layout_width="wrap_content"
@@ -24,6 +25,7 @@
             android:layout_height="40dp"
             android:src = "@drawable/ic_baseline_arrow_back_24"
             android:id="@+id/back"
+            android:clickable="true"
             android:layout_marginTop="10dp"
             android:layout_marginStart="8dp"/>
 
@@ -66,14 +68,16 @@
 
                 <EditText
                     android:id="@+id/input_tags"
-                    android:layout_width="300dp"
+                    android:layout_width="250dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
                     android:hint="Tags" />
 
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
-                    android:layout_marginStart="25dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="5dp"
                     android:text="Add"
                     android:id="@+id/add_tag"/>
 

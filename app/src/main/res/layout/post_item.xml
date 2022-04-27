@@ -1,89 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
             name="post"
             type="com.example.likas.models.Post" />
     </data>
-
-    <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp">
+        android:layout_gravity="center"
+        app:cardCornerRadius="20dp"
+        app:cardPreventCornerOverlap="true"
+        android:layout_margin="5dp"
+        app:cardElevation="0dp"
+        android:background="@color/browser_actions_bg_grey">
 
-        <TextView
-            android:id="@+id/username"
+        <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:background="@color/browser_actions_bg_grey">
 
-            android:minHeight="25dp"
-            android:text="@{post.name}"
-            android:textColor="@color/black"
-            android:textSize="15sp"
-            android:textStyle="bold" />
+            <TextView
+                android:id="@+id/username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
 
-        <TextView
-            android:id="@+id/post_body"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/username"
-            android:minHeight="75dp"
-            android:text="@{post.content}"
-            android:textSize="15sp" />
+                android:minHeight="15dp"
+                android:text="@{post.name}"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/post_tags"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/post_body"
-            android:minHeight="10dp"
-            android:text="@{post.tags}"
-            android:textSize="15sp" />
-        <TextView
-            android:id="@+id/post_date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/post_tags"
-            android:minHeight="10dp"
-            android:layout_marginTop="10dp"
-            android:textSize="15sp"
-            android:text="@{post.date}"/>
+            <TextView
+                android:id="@+id/post_body"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/username"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:minHeight="75dp"
+                android:paddingTop="5dp"
+                android:text="@{post.content}"
+                android:textSize="15sp" />
 
-        <LinearLayout
-            android:layout_toStartOf="@id/comment_btn"
-            android:id="@+id/liner_layout"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/post_date"
-            android:layout_marginTop="10dp"
-            android:layout_alignLeft="@id/post_date">
+            <TextView
+                android:id="@+id/text"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/post_body"
+                android:minHeight="10dp"
+                android:text="Tags:"
+                android:textSize="10dp" />
+
+            <TextView
+                android:id="@+id/post_tags"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/post_body"
+                android:layout_toEndOf="@id/text"
+                android:minHeight="15dp"
+                android:text="@{post.tags}"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/post_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/post_tags"
+                android:minHeight="10dp"
+                android:text="@{post.date}"
+                android:textSize="15sp" />
+
+            <LinearLayout
+                android:id="@+id/liner_layout"
+                android:background="@drawable/line_border"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/post_date"
+                android:layout_alignLeft="@id/post_date"
+                android:layout_marginTop="5dp"
+                android:layout_toStartOf="@id/comment_btn">
+
+                <ImageButton
+                    android:id="@+id/like_btn"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/ic_baseline_arrow_upward_24" />
+
+                <TextView
+                    android:id="@+id/upvotes"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:minHeight="15dp"
+                    android:padding="5dp"
+                    android:gravity="center_vertical"
+                    android:text="100"
+                    android:textSize="15sp" />
+            </LinearLayout>
 
             <ImageButton
-                android:id="@+id/like_btn"
+                android:id="@+id/comment_btn"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/ic_baseline_arrow_upward_24"/>
-            <TextView
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:padding="5dp"
+                android:layout_below="@+id/post_date"
+                android:layout_alignRight="@+id/post_date"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/line_border"
                 android:minHeight="30dp"
-                android:layout_marginLeft="5sp"
-                android:text="100"
-                android:id="@+id/upvotes" />
-        </LinearLayout>
+                android:paddingTop="15dp"
+                android:src="@drawable/ic_baseline_comment_24" />
 
-        <ImageButton
-            android:id="@+id/comment_btn"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:minHeight="30dp"
-            android:layout_below="@+id/post_date"
-            android:layout_alignRight="@+id/post_date"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/ic_baseline_comment_24"/>
+        </RelativeLayout>
 
-    </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
 </layout>

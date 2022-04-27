@@ -24,7 +24,8 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/news_back">
+            android:layout_below="@id/news_back"
+            android:layout_marginTop="15dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -34,10 +35,10 @@
                     android:id="@+id/news_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:minHeight="100dp"
                     android:text="Title"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/google_blue"
+                    android:textSize="30sp"
                     android:textStyle="bold" />
 
                 <LinearLayout
@@ -45,8 +46,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/news_title"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
                     android:orientation="horizontal">
 
                     <TextView
