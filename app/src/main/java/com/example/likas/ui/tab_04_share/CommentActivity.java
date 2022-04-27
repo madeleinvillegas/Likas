@@ -1,6 +1,7 @@
 package com.example.likas.ui.tab_04_share;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
@@ -34,6 +35,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import android.content.Intent;
 import android.graphics.Canvas;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -136,11 +138,12 @@ public class CommentActivity extends AppCompatActivity {
         }
 
         binding.sendComment.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
                 comment = binding.inputComment.getText().toString();
                 if(TextUtils.isEmpty(comment)){
-                    Toast.makeText(CommentActivity.this, "Comment empty", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CommentActivity.this, "Comment Empty", Toast.LENGTH_SHORT).show();
                 }
                 else{
                     LocalDateTime temp = LocalDateTime.now();
@@ -150,7 +153,7 @@ public class CommentActivity extends AppCompatActivity {
 
                     HashMap comments = new HashMap();
 
-                    Toast.makeText(CommentActivity.this,"Error",Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(CommentActivity.this,"Error",Toast.LENGTH_SHORT).show();
 
                     comments.put("body",binding.inputComment.getText().toString());
                     comments.put("user",userRef);
